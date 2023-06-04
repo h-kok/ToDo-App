@@ -2,22 +2,26 @@ import { Form, Input, Button } from "../Form/Form";
 import { useRef, useState } from "react";
 
 interface CategoryProps {
-    setCategories: (arg0: string) => unknown;
-    categoryArray: string[];
+    setCategories: (data: string[]) => unknown;
 }
-const AddCategory = ({ setCategories, categoryArray }: CategoryProps) => {
+const AddCategory = ({ setCategories }: CategoryProps) => {
     const userInput = useRef<HTMLInputElement>(null);
     const [error, setError] = useState<boolean>(false);
+    const [cat, setCat] = useState<string[]>([]);
 
     const handleAddCategory = (e: any) => {
         e.preventDefault();
         //post request
-        const input = userInput.current && userInput.current.value;
-        if (categoryArray.find((el) => el === input)) {
+
+        const input: string | null =
+            userInput.current && userInput.current.value;
+
+        if (cat.find((el) => el === input)) {
             setError(true);
         } else {
             setError(false);
-            input && setCategories(input);
+            input && cat.push(input);
+            cat && setCategories([...cat]);
         }
         e.target.reset();
     };
