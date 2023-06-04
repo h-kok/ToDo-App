@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import Tasks from "./containers/Tasks/Tasks";
+import styled from "styled-components";
+import AddCategory from "./components/AddCategory/AddCategory";
+import { useEffect, useState } from "react";
+
+const Global = styled.div`
+    font-family: Arial, Helvetica, sans-serif;
+    border: 2px solid black;
+    padding: 2em;
+`;
+const Title = styled.h1`
+    text-align: center;
+    text-decoration: underline;
+`;
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [tasks, setTasks] = useState<[]>([]);
+    const [categories, setCategories] = useState<string | null>(null);
+    const [categoryArray, setCategoryArray] = useState<string[]>([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    useEffect(() => {
+        //get list data
+        //setList to data
+        //get request all categories data
+        //setCategories to data
+        categoryArray && categories && categoryArray.push(categories);
+        console.log(categoryArray);
+    }, [categories]);
+
+    return (
+        <Global>
+            <Title>ToDo App</Title>
+            <AddCategory
+                // key={categories.id}
+                // categories={categories}
+                setCategories={setCategories}
+                categoryArray={categoryArray}
+            />
+            {/* <Tasks key={tasks.id} tasks={tasks} /> */}
+        </Global>
+    );
 }
 
-export default App
+export default App;
