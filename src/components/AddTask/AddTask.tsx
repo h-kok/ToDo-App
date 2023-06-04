@@ -1,33 +1,43 @@
-import { useForm } from "react-hook-form";
+import { TaskTemplate } from "../../containers/Tasks/Tasks";
 import { Button, Form, Input, Select } from "../Form/Form";
-import { categories } from "../AddCategory/AddCategory";
+import { useRef, useState } from "react";
 
-const AddTask = () => {
-    const defaultValues = { task: "", category: 1 };
+interface AddTaskProps {
+    categories: string[] | null;
+    setTasks: (data: TaskTemplate[]) => unknown;
+}
+const AddTask = ({ categories, setTasks }: AddTaskProps) => {
+    const [taskArray, setTaskArray] = useState<TaskTemplate[]>([]);
+    const [count, setCount] = useState<number>(1);
 
-    const {
-        register,
-        handleSubmit,
-        // formState: { errors },
-        reset,
-    } = useForm({
-        defaultValues: { ...defaultValues },
-    });
+    const input = useRef<HTMLInputElement>(null);
+    const category = useRef<HTMLSelectElement>(null);
 
-    const handleAddTask = (data: any) => {
-        console.log("task added");
-        reset({ ...defaultValues });
-        console.log(data);
+    const handleAddTask = (e: any) => {
+        e.preventDefault();
+
+        const taskValues = input.current &&
+            category.current && {
+                id: count,
+                task: input.current.value,
+                category: category.current.value,
+                completed: false,
+            };
+
+        taskValues && taskArray.push(taskValues);
+        taskArray && setTasks([...taskArray]);
+        setTaskArray(taskArray);
+        setCount(count + 1);
+        e.target.reset();
     };
+
     return (
-        <Form onSubmit={handleSubmit(handleAddTask)}>
-            <Input required {...register("task", { minLength: 1 })} />
-            <Select {...register("category")} required>
+        <Form onSubmit={handleAddTask}>
+            <Input required ref={input} />
+            <Select required ref={category}>
                 {categories &&
-                    categories.map((cat) => (
-                        <option key={cat.id} value={cat.category}>
-                            {cat.category}
-                        </option>
+                    categories.map((cat: string) => (
+                        <option value={cat}>{cat}</option>
                     ))}
             </Select>
             <Button>Add</Button>

@@ -1,51 +1,37 @@
+import { useEffect, useState } from "react";
 import AddTask from "../../components/AddTask/AddTask";
 import TaskCard from "../../components/Task/Task";
-import { TaskTemplate } from "../../services/services";
 
-const taskList = [
-    {
-        id: 1,
-        task: "make bed",
-        category: "life admin",
-        completed: false,
-    },
-    {
-        id: 2,
-        task: "drink water",
-        category: "life admin",
-        completed: false,
-    },
-    {
-        id: 3,
-        task: "climb mount everest",
-        category: "leisure",
-        completed: false,
-    },
-    {
-        id: 4,
-        task: "call grandma",
-        category: "social",
-        completed: false,
-    },
-    {
-        id: 5,
-        task: "clean car",
-        category: "cleaning",
-        completed: false,
-    },
-];
-
-interface TasksProps {
-    tasks: TaskTemplate[] | null;
+export interface TaskTemplate {
+    id: number;
+    task: string;
+    category: string;
+    completed: boolean;
 }
 
-const Tasks = ({ tasks }: TasksProps) => {
+interface TasksProps {
+    categories: string[] | null;
+}
+
+const Tasks = ({ categories }: TasksProps) => {
+    const [tasks, setTasks] = useState<TaskTemplate[]>([]);
+    // console.log(categories, "tasks");
+
+    useEffect(() => {
+        console.log(tasks, "tasks");
+    }, [tasks]);
     return (
         <>
             <h2>ToDos:</h2>
-            <AddTask />
-            {taskList &&
-                taskList.map((task) => <TaskCard key={task.id} task={task} />)}
+            <AddTask categories={categories} setTasks={setTasks} />
+            {tasks &&
+                tasks.map((task) => (
+                    <TaskCard
+                        key={task.id}
+                        task={task}
+                        categories={categories}
+                    />
+                ))}
         </>
     );
 };

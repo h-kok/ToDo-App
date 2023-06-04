@@ -15,29 +15,22 @@ const Title = styled.h1`
 `;
 
 function App() {
-    const [tasks, setTasks] = useState<[]>([]);
-    const [categories, setCategories] = useState<string | null>(null);
-    const [categoryArray, setCategoryArray] = useState<string[]>([]);
+    const [categories, setCategories] = useState<string[] | null>(null);
 
     useEffect(() => {
         //get list data
         //setList to data
         //get request all categories data
         //setCategories to data
-        categoryArray && categories && categoryArray.push(categories);
-        console.log(categoryArray);
+
+        console.log(categories, "app");
     }, [categories]);
 
     return (
         <Global>
             <Title>ToDo App</Title>
-            <AddCategory
-                // key={categories.id}
-                // categories={categories}
-                setCategories={setCategories}
-                categoryArray={categoryArray}
-            />
-            {/* <Tasks key={tasks.id} tasks={tasks} /> */}
+            <AddCategory setCategories={setCategories} />
+            <Tasks categories={categories} />
         </Global>
     );
 }

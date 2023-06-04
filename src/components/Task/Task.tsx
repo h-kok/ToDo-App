@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { categories } from "../AddCategory/AddCategory";
+import { useState } from "react";
+
 import {
     Button,
     DeleteBtn,
@@ -8,74 +8,35 @@ import {
     InputCheck,
     Select,
 } from "../Form/Form";
-import { useForm } from "react-hook-form";
+import { TaskTemplate } from "../../containers/Tasks/Tasks";
 
 interface TaskCardProps {
-    task: any;
+    task: TaskTemplate;
+    categories: string[] | null;
 }
 
-const TaskCard = ({ task }: TaskCardProps) => {
-    const defaultValues = {
-        task: task.task,
-        category: task.category,
-        completed: task.completed,
-    };
+const TaskCard = ({ task, categories }: TaskCardProps) => {
+    // const defaultValues = {
+    //     task: task.task,
+    //     category: task.category,
+    //     completed: task.completed,
+    // };
     const [completed, setCompleted] = useState(task.completed);
 
-    const {
-        register,
-        handleSubmit,
-        // formState: { errors },
-        reset,
-    } = useForm({ defaultValues: { ...defaultValues } });
-
-    useEffect(() => {
-        reset({ ...defaultValues });
-    }, []);
-
-    const handleEditTask = (data: any) => {
-        console.log("task edited");
-        console.log(data);
-        //patch request
-    };
-
-    const handleDeleteTask = (data: any) => {
-        console.log("task deleted");
-        //delete request
-    };
-
-    const handleDuplicateTask = (data: any) => {
-        console.log("task duplicated");
-        // post request
-    };
-
-    const handleCheck = () => {
-        setCompleted(!completed);
-    };
-
     return (
-        <Form onSubmit={handleSubmit(handleEditTask)}>
-            <Input
-                type="text"
-                required
-                {...register("task", { minLength: 1 })}
-            />
-            <Select id="category" {...register("category")}>
+        <Form>
+            <Input type="text" required defaultValue={task.task} />
+            <Select id="category" defaultValue={task.category}>
                 {categories &&
-                    categories.map((cat) => (
-                        <option key={cat.id} value={cat.category}>
-                            {cat.category}
-                        </option>
-                    ))}
+                    categories.map((cat) => <option value={cat}>{cat}</option>)}
             </Select>
             <InputCheck
+                defaultChecked={completed}
                 type="checkbox"
-                checked={completed}
-                onClick={handleCheck}
-                {...register("completed")}
+                onInput={() => setCompleted(!completed)}
             />
-            <Button onClick={handleDuplicateTask}>Duplicate</Button>
-            <DeleteBtn onClick={handleDeleteTask}>Delete</DeleteBtn>
+            <Button>Duplicate</Button>
+            <DeleteBtn>Delete</DeleteBtn>
         </Form>
     );
 };
