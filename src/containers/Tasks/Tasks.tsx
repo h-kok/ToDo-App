@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AddTask from "../../components/AddTask/AddTask";
 import TaskCard from "../../components/Task/Task";
+import { CategoryTemplate } from "../../App";
 
 export interface TaskTemplate {
     id: number;
@@ -10,7 +11,7 @@ export interface TaskTemplate {
 }
 
 interface TasksProps {
-    categories: string[] | null;
+    categories: CategoryTemplate[] | null;
 }
 
 const Tasks = ({ categories }: TasksProps) => {

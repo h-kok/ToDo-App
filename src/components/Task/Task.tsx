@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useRef, useState } from "react";
 import {
     Button,
     DeleteBtn,
@@ -9,26 +8,46 @@ import {
     Select,
 } from "../Form/Form";
 import { TaskTemplate } from "../../containers/Tasks/Tasks";
+import { CategoryTemplate } from "../../App";
 
 interface TaskCardProps {
     task: TaskTemplate;
-    categories: string[] | null;
+    categories: CategoryTemplate[] | null;
 }
 
 const TaskCard = ({ task, categories }: TaskCardProps) => {
-    // const defaultValues = {
-    //     task: task.task,
-    //     category: task.category,
-    //     completed: task.completed,
-    // };
     const [completed, setCompleted] = useState(task.completed);
+    const [editTask, setEditTask] = useState(task.task);
+    const [editCategory, setEditCategory] = useState(task.category);
+
+    const handleInputChange = (e: any) => {
+        setEditTask(e.target.value);
+    };
+
+    const handleCategoryChange = (e: any) => {
+        setEditCategory(e.target.value);
+        console.log(e.target.value);
+    };
 
     return (
         <Form>
-            <Input type="text" required defaultValue={task.task} />
-            <Select id="category" defaultValue={task.category}>
+            <Input
+                type="text"
+                required
+                defaultValue={editTask}
+                onChange={handleInputChange}
+            />
+            <Select
+                id="category"
+                defaultValue={editCategory}
+                onChange={handleCategoryChange}
+            >
                 {categories &&
-                    categories.map((cat) => <option value={cat}>{cat}</option>)}
+                    categories.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                            {cat.category}
+                        </option>
+                    ))}
             </Select>
             <InputCheck
                 defaultChecked={completed}

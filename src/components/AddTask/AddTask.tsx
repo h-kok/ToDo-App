@@ -1,9 +1,10 @@
+import { CategoryTemplate } from "../../App";
 import { TaskTemplate } from "../../containers/Tasks/Tasks";
 import { Button, Form, Input, Select } from "../Form/Form";
 import { useRef, useState } from "react";
 
 interface AddTaskProps {
-    categories: string[] | null;
+    categories: CategoryTemplate[] | null;
     setTasks: (data: TaskTemplate[]) => unknown;
 }
 const AddTask = ({ categories, setTasks }: AddTaskProps) => {
@@ -36,8 +37,10 @@ const AddTask = ({ categories, setTasks }: AddTaskProps) => {
             <Input required ref={input} />
             <Select required ref={category}>
                 {categories &&
-                    categories.map((cat: string) => (
-                        <option value={cat}>{cat}</option>
+                    categories.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                            {cat.category}
+                        </option>
                     ))}
             </Select>
             <Button>Add</Button>
