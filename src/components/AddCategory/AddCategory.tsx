@@ -1,27 +1,32 @@
+import { CategoryTemplate } from "../../App";
 import { Form, Input, Button } from "../Form/Form";
 import { useRef, useState } from "react";
 
 interface CategoryProps {
-    setCategories: (data: string[]) => unknown;
+    setCategories: (data: CategoryTemplate[]) => unknown;
 }
 const AddCategory = ({ setCategories }: CategoryProps) => {
     const userInput = useRef<HTMLInputElement>(null);
     const [error, setError] = useState<boolean>(false);
-    const [cat, setCat] = useState<string[]>([]);
+    const [category, setCategory] = useState<CategoryTemplate[]>([]);
+    const [count, setCount] = useState<number>(1);
 
     const handleAddCategory = (e: any) => {
         e.preventDefault();
         //post request
 
-        const input: string | null =
-            userInput.current && userInput.current.value;
+        const input = userInput.current && {
+            id: count,
+            category: userInput.current.value,
+        };
 
-        if (cat.find((el) => el === input)) {
+        if (category.find((el) => el.category === input?.category)) {
             setError(true);
         } else {
             setError(false);
-            input && cat.push(input);
-            cat && setCategories([...cat]);
+            input && category.push(input);
+            category && setCategories([...category]);
+            setCount(count + 1);
         }
         e.target.reset();
     };

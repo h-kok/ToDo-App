@@ -14,8 +14,15 @@ const Title = styled.h1`
     text-decoration: underline;
 `;
 
+export interface CategoryTemplate {
+    id: number;
+    category: string;
+}
+
 function App() {
-    const [categories, setCategories] = useState<string[] | null>(null);
+    const [categories, setCategories] = useState<CategoryTemplate[] | null>(
+        null
+    );
 
     useEffect(() => {
         //get list data
