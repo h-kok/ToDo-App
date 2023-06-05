@@ -16,11 +16,11 @@ interface TasksProps {
 
 const Tasks = ({ categories }: TasksProps) => {
     const [tasks, setTasks] = useState<TaskTemplate[]>([]);
-    // console.log(categories, "tasks");
 
     useEffect(() => {
         console.log(tasks, "tasks");
     }, [tasks]);
+
     return (
         <>
             <h2>ToDos:</h2>
@@ -31,6 +31,9 @@ const Tasks = ({ categories }: TasksProps) => {
                         key={task.id}
                         task={task}
                         categories={categories}
+                        // onDuplicate={onDuplicate}
+                        tasks={tasks}
+                        setTasks={setTasks}
                     />
                 ))}
         </>
