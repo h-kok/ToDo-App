@@ -1,66 +1,60 @@
 # To-Do App
 
-{add test badges here, all projects you build from here on out will have tests, therefore you should have github workflow badges at the top of your repositories: [Github Workflow Badges](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge)}
-
-## Demo & Snippets
-
--   Include hosted link
--   Include images of app if CLI or Client App
-
----
-
 ## Requirements / Purpose
 
--   MVP
--   purpose of project
--   stack used and why
+-   The MVP is to create the front end of a To-Do App that allows you to track, add and delete tasks, as well as manage categories of tasks.
+-   The purpose of the project is to develop skills in and develop an app using a Typescript React framework.
+-   The stack used is Typescript, React (Vite) and Styled Components for CSS, with Vitest for unit testing
 
 ---
 
 ## Build Steps
 
--   how to build / run project
--   use proper code snippets if there are any commands to run
+-   Pull repo from main branch. To install node modules:
+
+```
+npm install
+```
 
 ## Design Goals / Approach
 
--   Design goals
--   why did you implement this the way you did?
+-   I have focused on implementing one feature at a time, before moving onto the next. As categories has a many-to-one relationship with tasks, I focused on being able to add and store categories as the initial step, before moving onto adding and manipulating tasks.
+-   This is my first time using Typescript in an individual project and Typescript within a React framework. Through building the project, I aim to further develop my skills in both Typescript and React.
+-   I have used Styled Components for the first time in a project, to learn more about its use and benefits. I have created basic styling components and will complete the styling for the app as my last step.
 
 ## Known issues
 
--   Remaining bugs, things that have been left unfixed
--   Features that are buggy / flimsy
-
----
-
-## Future Goals
-
--   What are the immediate features you'd add given more time
+-   Need to adjust count state to add correct ID to duplicate tasks, so they will render correctly.
 
 ---
 
 ## Change logs
 
--   Write a paragraph labelled with the date every day you work on the project to discuss what you've done for the day. Be specific about the changes that have happened for that day.
-
 ### 31/05/23
 
--   set up react app with vite
--   install styled components
--   create github workflow file
--   create basic components and containers for app
+-   Set up react app with Vite
+-   Install styled components
+-   Create GitHub workflow file
+-   Create components and containers for app structure
 
 ### 01/06/23
 
--   move form components to own file
--   install react hook form
+-   Move form components to own file
+-   install Vitest for testing
+
+### 03/06/23
+
+-   Create feature to add categories and store categories in state in array.
+
+### 04/06/23
+
+-   Error handling for duplicate categories.
+-   Add feature to add new tasks tagged with task category.
+-   Add feature to update tasks automatically by changing the task name and the category
+-   Add feature to duplicate tasks. Need to adjust count state to add correct ID to duplicate tasks, so they will render correctly.
 
 ---
 
-## What did you struggle with?
+## Further details, related projects, reimplementations
 
--   What? Why? How?
--   first time using styled components.
-
----
+-   This project is the front-end/UI for the To-Do App. An API will be implemented as a separate project following this and will be linked upon completion.
