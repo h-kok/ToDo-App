@@ -1,33 +1,39 @@
 import { CategoryTemplate } from "../../App";
 import { TaskTemplate } from "../../containers/Tasks/Tasks";
 import { Button, Form, Input, Select } from "../Form/Form";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 interface AddTaskProps {
     categories: CategoryTemplate[] | null;
+    tasks: TaskTemplate[] | null;
     setTasks: (data: TaskTemplate[]) => unknown;
+    count: number;
+    setCount: (data: number) => unknown;
 }
-const AddTask = ({ categories, setTasks }: AddTaskProps) => {
-    const [taskArray, setTaskArray] = useState<TaskTemplate[]>([]);
-    const [count, setCount] = useState<number>(1);
-
+const AddTask = ({
+    categories,
+    tasks,
+    setTasks,
+    count,
+    setCount,
+}: AddTaskProps) => {
     const input = useRef<HTMLInputElement>(null);
     const category = useRef<HTMLSelectElement>(null);
 
     const handleAddTask = (e: any) => {
         e.preventDefault();
-
-        const taskValues = input.current &&
-            category.current && {
+        if (input.current && category.current) {
+            const taskValues: TaskTemplate = {
                 id: count,
                 task: input.current.value,
                 category: category.current.value,
                 completed: false,
             };
-
-        taskValues && taskArray.push(taskValues);
-        taskArray && setTasks([...taskArray]);
-        setTaskArray(taskArray);
+            console.log(taskValues, "taskvalues");
+            const newArr: TaskTemplate[] = tasks?.concat(taskValues);
+            console.log(newArr, "newarr");
+            setTasks(newArr);
+        }
         setCount(count + 1);
         e.target.reset();
     };

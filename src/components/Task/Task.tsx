@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
     Button,
     DeleteBtn,
@@ -16,22 +16,26 @@ interface TaskCardProps {
     // onDuplicate: (data: TaskTemplate) => unknown;
     tasks: TaskTemplate[];
     setTasks: (data: TaskTemplate[]) => unknown;
+    count: number;
+    setCount: (data: number) => unknown;
 }
 
-const TaskCard = ({ task, categories, tasks, setTasks }: TaskCardProps) => {
+const TaskCard = ({
+    task,
+    categories,
+    tasks,
+    setTasks,
+    count,
+    setCount,
+}: TaskCardProps) => {
     const [completed, setCompleted] = useState(task.completed);
-    const [editTask, setEditTask] = useState(task.task);
-    const [editCategory, setEditCategory] = useState(task.category);
 
     const handleInputChange = (e: any) => {
-        setEditTask(e.target.value);
         task.task = e.target.value;
-
         console.log(task, "updated task");
     };
 
     const handleCategoryChange = (e: any) => {
-        setEditCategory(e.target.value);
         task.category = e.target.value;
         console.log(task, "updated category");
     };
@@ -41,9 +45,10 @@ const TaskCard = ({ task, categories, tasks, setTasks }: TaskCardProps) => {
         const copy = tasks.find((el) => el.id === task.id);
         console.log(copy, "copy");
         const { id, ...rest } = copy;
-        const newCopy: TaskTemplate = { id: tasks.length + 1, ...rest };
+        const newCopy: TaskTemplate = { id: count, ...rest };
         console.log(newCopy);
         setTasks([...tasks, newCopy]);
+        setCount(count + 1);
     };
 
     return (
@@ -51,12 +56,12 @@ const TaskCard = ({ task, categories, tasks, setTasks }: TaskCardProps) => {
             <Input
                 type="text"
                 required
-                defaultValue={editTask}
+                defaultValue={task.task}
                 onChange={handleInputChange}
             />
             <Select
                 id="category"
-                defaultValue={editCategory}
+                defaultValue={task.category}
                 onChange={handleCategoryChange}
             >
                 {categories &&

@@ -16,15 +16,23 @@ interface TasksProps {
 
 const Tasks = ({ categories }: TasksProps) => {
     const [tasks, setTasks] = useState<TaskTemplate[]>([]);
+    const [count, setCount] = useState<number>(1);
 
     useEffect(() => {
         console.log(tasks, "tasks");
-    }, [tasks]);
+        console.log(count, "count");
+    }, [tasks, count]);
 
     return (
         <>
             <h2>ToDos:</h2>
-            <AddTask categories={categories} setTasks={setTasks} />
+            <AddTask
+                categories={categories}
+                tasks={tasks}
+                setTasks={setTasks}
+                count={count}
+                setCount={setCount}
+            />
             {tasks &&
                 tasks.map((task) => (
                     <TaskCard
@@ -34,6 +42,8 @@ const Tasks = ({ categories }: TasksProps) => {
                         // onDuplicate={onDuplicate}
                         tasks={tasks}
                         setTasks={setTasks}
+                        count={count}
+                        setCount={setCount}
                     />
                 ))}
         </>
