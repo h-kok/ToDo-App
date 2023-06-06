@@ -24,7 +24,7 @@ npm install
 
 ## Known issues
 
--   Need to adjust count state to add correct ID to duplicate tasks, so they will render correctly.
+-   Need to fix type issues in Task (id) and AddTask (newArr) components.
 
 ---
 
@@ -52,6 +52,11 @@ npm install
 -   Add feature to add new tasks tagged with task category.
 -   Add feature to update tasks automatically by changing the task name and the category
 -   Add feature to duplicate tasks. Need to adjust count state to add correct ID to duplicate tasks, so they will render correctly.
+
+### 06/06/23
+
+-   Move count state to Tasks level so all duplicate tasks have correct ID.
+-   Pass task props to AddTask and Task components so that tasks array retains duplicate tasks and re-renders correctly.
 
 ---
 
