@@ -24,7 +24,7 @@ npm install
 
 ## Known issues
 
--   Need to fix type issues in Task (id) and AddTask (newArr) components.
+-   Need to fix error "Form submission canceled because the form is not connected" when trying to delete task.
 
 ---
 
@@ -57,6 +57,11 @@ npm install
 
 -   Move count state to Tasks level so all duplicate tasks have correct ID.
 -   Pass task props to AddTask and Task components so that tasks array retains duplicate tasks and re-renders correctly.
+
+### 07/06/23
+
+-   Add error handling to fix type issues in Task (id) and AddTask (newArr) components.
+-   Add feature to delete tasks.
 
 ---
 
