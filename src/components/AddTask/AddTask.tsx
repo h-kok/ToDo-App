@@ -29,9 +29,10 @@ const AddTask = ({
                 category: category.current.value,
                 completed: false,
             };
-            console.log(taskValues, "taskvalues");
-            const newArr: TaskTemplate[] = tasks?.concat(taskValues);
-            console.log(newArr, "newarr");
+            if (!tasks) {
+                throw new Error("There are currently no tasks");
+            }
+            const newArr: TaskTemplate[] = tasks.concat(taskValues);
             setTasks(newArr);
         }
         setCount(count + 1);

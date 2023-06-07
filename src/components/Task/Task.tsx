@@ -30,6 +30,11 @@ const TaskCard = ({
 }: TaskCardProps) => {
     const [completed, setCompleted] = useState(task.completed);
 
+    const selected = tasks.find((el) => el.id === task.id);
+    if (!selected) {
+        throw new Error("Task to be deleted was not found");
+    }
+
     const handleInputChange = (e: any) => {
         task.task = e.target.value;
         console.log(task, "updated task");
@@ -41,14 +46,14 @@ const TaskCard = ({
     };
 
     const handleDuplicateTask = () => {
-        // e.preventDefault();
-        const copy = tasks.find((el) => el.id === task.id);
-        console.log(copy, "copy");
-        const { id, ...rest } = copy;
-        const newCopy: TaskTemplate = { id: count, ...rest };
-        console.log(newCopy);
-        setTasks([...tasks, newCopy]);
+        const { id, ...rest } = selected;
+        const copy: TaskTemplate = { id: count, ...rest };
+        setTasks([...tasks, copy]);
         setCount(count + 1);
+    };
+
+    const handleDeleteTask = () => {
+        setTasks(tasks.filter((el) => el !== selected));
     };
 
     return (
@@ -79,7 +84,7 @@ const TaskCard = ({
             <Button onClick={handleDuplicateTask} type="button">
                 Duplicate
             </Button>
-            <DeleteBtn>Delete</DeleteBtn>
+            <DeleteBtn onClick={handleDeleteTask}>Delete</DeleteBtn>
         </Form>
     );
 };
