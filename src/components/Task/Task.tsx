@@ -1,4 +1,3 @@
-import { useRef, useState } from "react";
 import {
     Button,
     DeleteBtn,
@@ -13,7 +12,6 @@ import { CategoryTemplate } from "../../App";
 interface TaskCardProps {
     task: TaskTemplate;
     categories: CategoryTemplate[] | null;
-    // onDuplicate: (data: TaskTemplate) => unknown;
     tasks: TaskTemplate[];
     setTasks: (data: TaskTemplate[]) => unknown;
     count: number;
@@ -28,13 +26,6 @@ const TaskCard = ({
     count,
     setCount,
 }: TaskCardProps) => {
-    const [completed, setCompleted] = useState(task.completed);
-
-    const selected = tasks.find((el) => el.id === task.id);
-    if (!selected) {
-        throw new Error("Task to be deleted was not found");
-    }
-
     const handleInputChange = (e: any) => {
         task.task = e.target.value;
         console.log(task, "updated task");
@@ -46,18 +37,27 @@ const TaskCard = ({
     };
 
     const handleDuplicateTask = () => {
-        const { id, ...rest } = selected;
-        const copy: TaskTemplate = { id: count, ...rest };
+        const { id, completed, ...rest } = task;
+        const copy: TaskTemplate = { id: count, ...rest, completed: false };
         setTasks([...tasks, copy]);
         setCount(count + 1);
     };
 
     const handleDeleteTask = () => {
-        setTasks(tasks.filter((el) => el !== selected));
+        setTasks(tasks.filter((el) => el !== task));
+    };
+
+    const handleCheckTask = () => {
+        task.completed = !task.completed;
     };
 
     return (
         <Form onSubmit={(e) => e.preventDefault()}>
+            <InputCheck
+                defaultChecked={task.completed}
+                type="checkbox"
+                onInput={handleCheckTask}
+            />
             <Input
                 type="text"
                 required
@@ -76,15 +76,12 @@ const TaskCard = ({
                         </option>
                     ))}
             </Select>
-            <InputCheck
-                defaultChecked={completed}
-                type="checkbox"
-                onInput={() => setCompleted(!completed)}
-            />
             <Button onClick={handleDuplicateTask} type="button">
                 Duplicate
             </Button>
-            <DeleteBtn onClick={handleDeleteTask}>Delete</DeleteBtn>
+            <DeleteBtn onClick={handleDeleteTask} type="button">
+                Delete
+            </DeleteBtn>
         </Form>
     );
 };

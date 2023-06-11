@@ -20,12 +20,11 @@ const Tasks = ({ categories }: TasksProps) => {
 
     useEffect(() => {
         console.log(tasks, "tasks");
-        console.log(count, "count");
-    }, [tasks, count]);
+    }, [tasks]);
 
     return (
         <>
-            <h2>ToDos:</h2>
+            <h3>Add Task:</h3>
             <AddTask
                 categories={categories}
                 tasks={tasks}
@@ -33,13 +32,16 @@ const Tasks = ({ categories }: TasksProps) => {
                 count={count}
                 setCount={setCount}
             />
+            <h2>To Do:</h2>
+            {!tasks.length && (
+                <p>You've got nothing to do! Add a task to get started.</p>
+            )}
             {tasks &&
                 tasks.map((task) => (
                     <TaskCard
                         key={task.id}
                         task={task}
                         categories={categories}
-                        // onDuplicate={onDuplicate}
                         tasks={tasks}
                         setTasks={setTasks}
                         count={count}

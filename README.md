@@ -24,9 +24,7 @@ npm install
 
 ## Known issues
 
--   Need to fix error "Form submission canceled because the form is not connected" when trying to delete task.
-
----
+-   ***
 
 ## Change logs
 
@@ -62,6 +60,11 @@ npm install
 
 -   Add error handling to fix type issues in Task (id) and AddTask (newArr) components.
 -   Add feature to delete tasks.
+
+### 09/06/2023
+
+-   Add type 'button' to Delete task btn to connect form in Task component.
+-   Add function to update 'task completed' state.
 
 ---
 
