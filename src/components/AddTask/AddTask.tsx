@@ -41,7 +41,7 @@ const AddTask = ({
 
     return (
         <Form onSubmit={handleAddTask}>
-            <Input required ref={input} />
+            <Input required ref={input} placeholder="Add Task" />
             <Select required ref={category}>
                 {categories &&
                     categories.map((cat) => (

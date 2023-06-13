@@ -3,12 +3,12 @@ import { Form, Input, Button } from "../Form/Form";
 import { useRef, useState } from "react";
 
 interface CategoryProps {
+    categories: CategoryTemplate[];
     setCategories: (data: CategoryTemplate[]) => unknown;
 }
-const AddCategory = ({ setCategories }: CategoryProps) => {
+const AddCategory = ({ categories, setCategories }: CategoryProps) => {
     const userInput = useRef<HTMLInputElement>(null);
     const [error, setError] = useState<boolean>(false);
-    const [category, setCategory] = useState<CategoryTemplate[]>([]);
     const [count, setCount] = useState<number>(1);
 
     const handleAddCategory = (e: any) => {
@@ -19,13 +19,16 @@ const AddCategory = ({ setCategories }: CategoryProps) => {
             id: count,
             category: userInput.current.value,
         };
+        if (!input) {
+            throw new Error("You must enter a valid category");
+        }
 
-        if (category.find((el) => el.category === input?.category)) {
+        if (categories.find((el) => el.category === input?.category)) {
             setError(true);
         } else {
             setError(false);
-            input && category.push(input);
-            category && setCategories([...category]);
+            categories.push(input);
+            setCategories([...categories]);
             setCount(count + 1);
         }
         e.target.reset();
@@ -35,7 +38,13 @@ const AddCategory = ({ setCategories }: CategoryProps) => {
         <div>
             <h2>Add category</h2>
             <Form onSubmit={handleAddCategory}>
-                <Input type="text" required id="category" ref={userInput} />
+                <Input
+                    type="text"
+                    required
+                    id="category"
+                    ref={userInput}
+                    placeholder="Add Category"
+                />
                 <Button type="submit">Add</Button>
             </Form>
             {error && (
