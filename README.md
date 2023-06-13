@@ -66,6 +66,15 @@ npm install
 -   Add type 'button' to Delete task btn to connect form in Task component.
 -   Add function to update 'task completed' state.
 
+### 11/06/23
+
+-   Refactor category state in 'addCategory' component.
+-   Add unit test for AddCategory
+
+### 13/06/23
+
+-   Add unit test for App, more unit tests for AddCateogry.
+
 ---
 
 ## Further details, related projects, reimplementations
