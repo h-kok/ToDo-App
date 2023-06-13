@@ -24,7 +24,7 @@ npm install
 
 ## Known issues
 
--   ***
+-   Issue with Github workflows test failing.
 
 ## Change logs
 
@@ -74,6 +74,7 @@ npm install
 ### 13/06/23
 
 -   Add unit test for App, more unit tests for AddCateogry.
+-   Updated Github workflows file, however tests failing with error: 'sh: 1: vitest: not found'.
 
 ---
 
