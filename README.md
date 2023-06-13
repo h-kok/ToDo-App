@@ -78,6 +78,13 @@ npm install
 
 ---
 
+## What did you struggle with?
+
+-   This is my first time writing unit tests for a React project and using React Testing Library. I referenced the official React Testing Library docs as a guide for what can be tested and what the limitations are.
+-   This is also my first project utilising and learning about GitHub workflows in order to automate the testing process as part of a CI/CD approach. I used GitHub as a guide to set up my .yml file and learn about the workflows process. I am still failing the tests with error: 'sh: 1: vitest: not found' and need to troubleshoot this.
+
+---
+
 ## Further details, related projects, reimplementations
 
 -   This project is the front-end/UI for the To-Do App. An API will be implemented as a separate project following this and will be linked upon completion.
