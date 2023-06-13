@@ -20,9 +20,7 @@ export interface CategoryTemplate {
 }
 
 function App() {
-    const [categories, setCategories] = useState<CategoryTemplate[] | null>(
-        null
-    );
+    const [categories, setCategories] = useState<CategoryTemplate[]>([]);
 
     useEffect(() => {
         //get list data
@@ -36,7 +34,10 @@ function App() {
     return (
         <Global>
             <Title>ToDo App</Title>
-            <AddCategory setCategories={setCategories} />
+            <AddCategory
+                categories={categories}
+                setCategories={setCategories}
+            />
             <Tasks categories={categories} />
         </Global>
     );
